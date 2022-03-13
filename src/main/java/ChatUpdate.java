@@ -1,6 +1,7 @@
 import com.slack.api.bolt.App;
 import com.slack.api.bolt.jetty.SlackAppServer;
 import com.slack.api.bolt.response.Response;
+import com.slack.api.methods.response.chat.ChatPostMessageResponse;
 import com.slack.api.methods.response.chat.ChatUpdateResponse;
 import com.slack.api.model.block.LayoutBlock;
 
@@ -13,12 +14,22 @@ import static com.slack.api.model.block.element.BlockElements.*;
 
 public class ChatUpdate {
     private static void startCommand(App app) {
-        app.command("/startChatUpdateRepro", (req, ctx) ->
-            ctx.ack(res -> res
+        app.command("/startChatUpdateRepro", (req, ctx) -> {
+
+//            ChatPostMessageResponse chatPostMessageRes = ctx.client().chatPostMessage(r -> r
+//                    .blocks(getBlocks(null))
+//                    .channel(req.getPayload().getChannelId())
+//                    .token(ctx.getBotToken())
+//            );
+
+//            if (chatPostMessageRes.isOk()) return ctx.ack();
+//            else return Response.builder().statusCode(500).body(chatPostMessageRes.getError()).build();
+
+            return ctx.ack(res -> res
                     .responseType("in_channel")
                     .blocks(getBlocks(null))
-            )
-        );
+            );
+        });
     }
 
     private static void joinAction(App app) {
