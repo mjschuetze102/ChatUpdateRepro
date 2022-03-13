@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id("application")
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("com.slack.api:bolt:1.20.+")
+    implementation("com.slack.api:bolt-servlet:1.20.+")
+    implementation("com.slack.api:bolt-jetty:1.20.+")
+    implementation("org.slf4j:slf4j-simple:1.7.33")
+}
+
+application {
+    mainClassName = "ChatUpdate"
+}
+
+run {
+    // gradle run -DslackLogLevel=debug
+    systemProperty "org.slf4j.simpleLogger.log.com.slack.api", System.getProperty("slackLogLevel")
+}
